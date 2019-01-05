@@ -1,13 +1,10 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: fabrizio
-	 * Date: 03/01/19
-	 * Time: 15.18
-	 */
-
 	namespace ResourcesManager\Services;
 
+	/**
+	 * Class AbstractServiceDOM
+	 * @package ResourcesManager\Services
+	 */
 	abstract class AbstractServiceDOM
 	{
 		const CONTEXT = array(
@@ -22,10 +19,17 @@
 
 		protected $context = array();
 
+		/**
+		 * @param \ResourcesManager\Services\string      $get
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
+		 *
+		 * @return mixed
+		 */
 		abstract public function load(string $get, ?string $context = null, ?string $name = null);
 
 		/**
-		 * Clean attr
+		 * Inizializzazione varibili
 		 *
 		 * @param null|string $attr
 		 *
@@ -47,7 +51,7 @@
 		}
 
 		/**
-		 * Remove all tags with the given name
+		 * Rimossione di una valore dall'array specificato
 		 *
 		 * @param string      $type
 		 * @param null|string $name
@@ -67,7 +71,8 @@
 		}
 
 		/**
-		 * If exist meta or og
+		 * Controlla se è presente uno specifico contesto all'interno della risorsa
+		 * Oppure se è presente uno specifico item all'interno del contesto
 		 *
 		 * @param string      $type
 		 * @param null|string $name
@@ -92,6 +97,8 @@
 		}
 
 		/**
+		 * Ripulisce il codice dai tag HTML e dai spazi bianchi in più, tagliando la lunghezza del testo, e sostituisce i caratteri speciali
+		 *
 		 * @param string   $text
 		 * @param int|null $maxLength
 		 *
@@ -141,6 +148,7 @@
 
 		/**
 		 * Aggiunge un elemento al rispettivo attributo
+		 * Utilizzato dalla classi che estendono questa, per poter caricare all'interno degli attributi i valori desiderati
 		 *
 		 * @param string      $context
 		 * @param null|string $name
@@ -166,6 +174,12 @@
 		}
 
 		/**
+		 * Restituisce il nome se presente
+		 *
+		 * esempio:
+		 * $value = 'body'; return null
+		 * $value = 'body.menu'; return 'menu'
+		 *
 		 * @param null|string $value
 		 *
 		 * @return null|string
@@ -180,6 +194,12 @@
 		}
 
 		/**
+		 * Resitusce il contesto
+		 *
+		 * esempio:
+		 * $value = 'body'; return 'body'
+		 * $value = 'body.menu'; return 'body'
+		 *
 		 * @param null|string $context
 		 * @param array       $rules
 		 * @param string      $default
@@ -202,7 +222,7 @@
 		}
 
 		/**
-		 * Function to process the data of tags and give html output
+		 * Funzione che processa i dati e crea il codice HTML sostituendo i valori al template
 		 *
 		 * @return string
 		 */
@@ -217,6 +237,9 @@
 		}
 
 		/**
+		 * Funzione utilizzate per renderizzare gli attributi, ovvero
+		 * restituire in modo corretto la stringa contenete tutti i valori HTML di quel specifico attributo (o contesto, o nome)
+		 *
 		 * @param null|string $context
 		 * @param string      $name
 		 *
@@ -239,6 +262,13 @@
 		}
 
 		/**
+		 * Funzione per generare la stringa delle proprietà dei tag HTML
+		 * il parametro $withNull se settato a true aggiungerà il valore anche se null ( key="null")
+		 * se settato su false non aggiungerà il valore ( key )
+		 *
+		 * esempio:
+		 * $property = array("key"=>"valore", "key2"=> null,"keyN"=>"valoreN")
+		 *
 		 * @param array $property
 		 *
 		 * @return null|string

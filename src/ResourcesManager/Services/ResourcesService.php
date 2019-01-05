@@ -26,11 +26,13 @@
 		}
 
 		/**
-		 * Funzione per caricare le risorse nelle view
+		 * Funzione che permette di renderizzare una risorsa specifica, tra:
+		 * script, style, css, js, variable
+		 * Il valore di ritorno sarà una stringa composta dai tag HTML (in base alla risorsa scleta) da inserire nella view o da restituire in una risposta
 		 *
-		 * @param string      $get (recuperare uno degli attr)
-		 * @param null|string $context
-		 * @param string      $name
+		 * @param \ResourcesManager\Services\string      $get
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -53,12 +55,13 @@
 		}
 
 		/**
-		 * Render $script, renderizza gli script restituendo i script tag da caricare nel DOM.
-		 * Il primo parametro serve per recupere solo un tipo di contesto
-		 * Il secondo per recuperare un solo script da un contesto specifico
+		 * Render $script, renderizza gli script restituendo una stringa composta tag HTML da inserire nel DOM.
+		 * Deve essere utilizzata per caricare gli script javascript interni o esterni al sistema.
+		 * Il primo parametro serve per recupere i gli script renderizzati (cioè tag html) di uno specifico contesto
+		 * Il secondo per recuperare un solo script renderizzato da un contesto specifico
 		 *
-		 * @param string|NULL $context
-		 * @param string      $name
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -69,8 +72,10 @@
 		}
 
 		/**
-		 * @param null|string $context
-		 * @param string      $name
+		 * Render $style, stesso funzionamento di renderScript, solamente che renderizza file css interni o esterni al sistema
+		 *
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -80,7 +85,15 @@
 		}
 
 		/**
-		 * Render $js attr, make a global js variable with all value of $js.
+		 * Render $js, permette di creare varibili javascript all'interno del DOM.
+		 * Può essere utilizzato per creare varibili che contengo i valori da passare al frontend senza utilizzare il print di Laravel ovvero {{!! !!}}
+		 * Possono essere create varibili con il nome di riferimento che conterranno i valore relativi a $this->varible[$name]
+		 * Oppure creare un'unica variabile con il nome definito nel file .env (o quello di default JS_LARAVEL)
+		 *
+		 * esempio:
+		 * <script type="text/javascript"> var JS_LARAVEL = $this->variable* </script>
+		 * <script type="text/javascript"> var objMenu = $this->variable['objMenu']* </script>
+		 * *ovviamente saranno codificati per poter essere utilizzati poi dal js
 		 *
 		 * @return null|string
 		 */
@@ -110,8 +123,10 @@
 		}
 
 		/**
-		 * @param null|string $context
-		 * @param null|string $name
+		 * Render $js, stesso funzionamento di renderScript, solamente che renderizza snippet di codice js
+		 *
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -121,8 +136,10 @@
 		}
 
 		/**
-		 * @param null|string $context
-		 * @param null|string $name
+		 * Render $css, stesso funzionamento di renderScript, solamente che renderizza snippet di codice css
+		 *
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param null|\ResourcesManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -132,42 +149,52 @@
 		}
 
 		/**
-		 * Funzione che aggiunge snippet di codici
+		 * Funzione che aggiunge le codice js all'interno dell'array $js
+		 * È obbligatorio passare il valore dello snippet js
+		 * Non è necessario dichiarare un contesto (ovvero dove sarà posizionato all'interno del DOM, oopure, custom) o il nome
+		 * relativo allo snippet inserito.
 		 *
-		 * @param             $value
-		 * @param null|string $key
+		 * Tuttavia se si vuole aggiungere un contesto basterà passare il $context (se il valore non è contenuto in CONTEXT o $this->context non verrà inserito nell'array e non sarabbi restituiti errori
+		 * Se si vuole assegnare anhce un nome a ciò che verrà inserito basterà passare il paramentro $context per esempio: 'body.name', 'footer.googleManager' etc..
 		 *
-		 * @return $this
+		 * @param \ResourcesManager\Services\string      $content
+		 * @param null|\ResourcesManager\Services\string $context
+		 *
+		 * @return object
 		 */
-		public function js(string $content, ?string $context = 'body')
+		public function js(string $content, ?string $context = 'body'): object
 		{
 			$this->push($this->js, 'script', $context, null, $content);
 			return $this;
 		}
 
 		/**
-		 * @param string      $content
-		 * @param null|string $context
+		 * Funzione che aggiunge codice css all'interno dell'array $css
+		 * Stesso procedimento della funzione js()
 		 *
-		 * @return $this
+		 * @param \ResourcesManager\Services\string      $content
+		 * @param null|\ResourcesManager\Services\string $context
+		 *
+		 * @return object
 		 */
-		public function css(string $content, ?string $context = 'body')
+		public function css(string $content, ?string $context = 'body'): object
 		{
 			$this->push($this->css, 'style', $context, null, $content);
 			return $this;
 		}
 
 		/**
-		 * Funzione che aggiunge gli script che poi verranno caricati nella view
+		 * Funzione che aggiunge script all'interno dell'array $scripts
+		 * Stesso procedimento della funzione js()
+		 * Il parametro $asset serve per dichiarare se l'url dello script è interno al sistema o esterno
 		 *
-		 * @param string      $script  (url of script)
-		 * @param null|string $context (context of script)
-		 *                             Use DOT notation for add name to script, example 'footer.mainjs'
-		 * @param bool|null   $asset
+		 * @param \ResourcesManager\Services\string      $script
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param \ResourcesManager\Services\bool        $asset
 		 *
-		 * @return $this
+		 * @return object
 		 */
-		public function script(string $script, ?string $context = 'body', bool $asset = true)
+		public function script(string $script, ?string $context = 'body', bool $asset = true): object
 		{
 			$uri = $asset ? asset($script) : $script;
 
@@ -183,8 +210,11 @@
 		}
 
 		/**
-		 * @param             $variable
-		 * @param string|null $name
+		 * Funzione per inserire varibili all'interno dell'array: $variable
+		 * È necessario aggiungere il valore della varibile ed eventualmente il nome rifereto alla varibile
+		 *
+		 * @param                                        $variable
+		 * @param \ResourcesManager\Services\string|null $name
 		 *
 		 * @return $this
 		 */
@@ -199,9 +229,13 @@
 		}
 
 		/**
-		 * @param string      $style
-		 * @param null|string $context
-		 * @param bool        $asset
+		 * Funzione che aggiunge script all'interno dell'array $style
+		 * Stesso procedimento della funzione js()
+		 * Il parametro $asset serve per dichiarare se l'url del file di stile è interno al sistema o esterno
+		 *
+		 * @param \ResourcesManager\Services\string      $style
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param \ResourcesManager\Services\bool        $asset
 		 *
 		 * @return $this
 		 */
