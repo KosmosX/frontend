@@ -224,7 +224,7 @@
 		 * @param string      $tag
 		 *                        name of tag HTML
 		 * @param string      $context
-		 *                            context of resources
+		 *                            context and name of resources (dot notation)
 		 * @param null|string $property
 		 *                             properties of tag HTML
 		 * @param null|string $content
@@ -235,8 +235,8 @@
 		protected function push(array &$attr, string $tag, string $context, ?string $property = null, ?string $content = null): object
 		{
 			try {
-				$name = $this->checkName($context);
 				$context = $this->checkContext($context);
+				$name = $this->checkName($context);
 
 				$output = $this->templateProcessor($tag, $property, $content);
 				if (null != $name)
@@ -325,9 +325,12 @@
 		 *
 		 * @return null|string
 		 */
-		protected function rendering(array $attr, ?string $context = null, ?string $name = null): ?string
+		protected function rendering(array $attr, ?string $get = null): ?string
 		{
 			$render = null;
+
+			$context = $this->checkContext($get);
+			$name = $this->checkName($get);
 
 			if (null == $context)
 				$render = array_flatten($attr);

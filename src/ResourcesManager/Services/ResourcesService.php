@@ -52,20 +52,17 @@
 		 */
 		public function dump(string $resources, ?string $get = null): ? string
 		{
-			$name = $this->checkName($get);
-			$context = $this->checkContext($get);
-
 			switch ($resources) {
 				case 'script':
-					return $this->renderScript($context, $name);
+					return $this->renderScript($get);
 				case 'style':
-					return $this->renderStyle($context, $name);
+					return $this->renderStyle($get);
 				case 'variable':
-					return $this->renderVariable($context ?: $name);
+					return $this->renderVariable($get);
 				case 'js':
-					return $this->renderJs($context, $name);
+					return $this->renderJs($get);
 				case 'css':
-					return $this->renderCss($context, $name);
+					return $this->renderCss($get);
 				default:
 					return null;
 			}

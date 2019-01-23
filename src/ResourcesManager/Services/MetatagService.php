@@ -47,16 +47,13 @@
 		 */
 		public function dump(string $resources, ?string $get = null): ? string
 		{
-			$name = $this->checkName($get);
-			$context = $this->checkContext($get);
-
 			switch ($resources) {
 				case 'meta':
-					return $this->renderMeta($context, $name);
+					return $this->renderMeta($get);
 				case 'og':
-					return $this->renderOg($context, $name);
+					return $this->renderOg($get);
 				case 'extra':
-					return $this->renderExtra($context, $name);
+					return $this->renderExtra($get);
 				case 'all':
 					return $this->renderAll();
 				default:
