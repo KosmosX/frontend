@@ -5,6 +5,21 @@
 	use ResourcesManager\Services\AbstractServiceDOM;
 
 	/**
+	 * Method to get tag HTML of resources service
+	 * dump()
+	 * renderStyle()
+	 * renderCss()
+	 * renderScript()
+	 * renderJs()
+	 * renderVariable()
+	 *
+	 * Method to push resources
+	 * style()
+	 * css()
+	 * script()
+	 * js()
+	 * variable()
+	 *
 	 * Class ResourceService
 	 * @package App\Services
 	 */
@@ -28,17 +43,19 @@
 		/**
 		 * Funzione che permette di renderizzare una risorsa specifica, tra:
 		 * script, style, css, js, variable
-		 * Il valore di ritorno sarà una stringa composta dai tag HTML (in base alla risorsa scleta) da inserire nella view o da restituire in una risposta
+		 * Il valore di ritorno sarà una stringa composta dai tag HTML (in base alla risorsa scelta)
 		 *
-		 * @param \ResourcesManager\Services\string      $get
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * @param string      $resources
+		 * @param null|string $get
 		 *
 		 * @return null|string
 		 */
-		public function load(string $get, ?string $context = null, ?string $name = null): ? string
+		public function dump(string $resources, ?string $get = null): ? string
 		{
-			switch ($get) {
+			$name = $this->checkName($get);
+			$context = $this->checkContext($get);
+
+			switch ($resources) {
 				case 'script':
 					return $this->renderScript($context, $name);
 				case 'style':
@@ -48,7 +65,7 @@
 				case 'js':
 					return $this->renderJs($context, $name);
 				case 'css':
-					return $this->renderCss();
+					return $this->renderCss($context, $name);
 				default:
 					return null;
 			}
@@ -72,7 +89,8 @@
 		}
 
 		/**
-		 * Render $style, stesso funzionamento di renderScript, solamente che renderizza file css interni o esterni al sistema
+		 * Render $style, stesso funzionamento di renderScript, solamente che renderizza file css interni o esterni al
+		 * sistema
 		 *
 		 * @param null|\ResourcesManager\Services\string $context
 		 * @param null|\ResourcesManager\Services\string $name
@@ -86,9 +104,10 @@
 
 		/**
 		 * Render $js, permette di creare varibili javascript all'interno del DOM.
-		 * Può essere utilizzato per creare varibili che contengo i valori da passare al frontend senza utilizzare il print di Laravel ovvero {{!! !!}}
-		 * Possono essere create varibili con il nome di riferimento che conterranno i valore relativi a $this->varible[$name]
-		 * Oppure creare un'unica variabile con il nome definito nel file .env (o quello di default JS_LARAVEL)
+		 * Può essere utilizzato per creare varibili che contengo i valori da passare al frontend senza utilizzare il
+		 * print di Laravel ovvero {{!! !!}} Possono essere create varibili con il nome di riferimento che conterranno
+		 * i valore relativi a $this->varible[$name] Oppure creare un'unica variabile con il nome definito nel file
+		 * .env (o quello di default JS_LARAVEL)
 		 *
 		 * esempio:
 		 * <script type="text/javascript"> var JS_LARAVEL = $this->variable* </script>
@@ -149,22 +168,32 @@
 		}
 
 		/**
-		 * Funzione che aggiunge le codice js all'interno dell'array $js
+		 * Funzione che aggiunge codice js all'interno dell'array $js
 		 * È obbligatorio passare il valore dello snippet js
-		 * Non è necessario dichiarare un contesto (ovvero dove sarà posizionato all'interno del DOM, oopure, custom) o il nome
-		 * relativo allo snippet inserito.
+		 * Non è necessario dichiarare un contesto (ovvero dove sarà posizionato all'interno del DOM) per default verrà inserito sotto la chiave 'body'
 		 *
-		 * Tuttavia se si vuole aggiungere un contesto basterà passare il $context (se il valore non è contenuto in CONTEXT o $this->context non verrà inserito nell'array e non sarabbi restituiti errori
-		 * Se si vuole assegnare anhce un nome a ciò che verrà inserito basterà passare il paramentro $context per esempio: 'body.name', 'footer.googleManager' etc..
+		 * Se si vuole aggiungere un contesto di caricamento della risorsa basterà indicarlo nel parametro $context (nel caso in cui la chiave scelta non è contenuta in
+		 * self::CONTEXT o $this->context non verrà inserito nell'array e non saranno restituiti errori.
+		 * Se si vuole assegnare anhce un nome alla risorsa per identificarla basterà passare il paramentro $context con dot notation, per esempio: 'body.name',
+		 * 'footer.googleManager' etc.. in cui la prima parte è il contesto di caricamento e la seconda sarà il nome
 		 *
-		 * @param \ResourcesManager\Services\string      $content
-		 * @param null|\ResourcesManager\Services\string $context
+		 * Il parametro $property sono tutte le proprietà che verranno assegnate alla risorsa, è un array associativo, con nome proprietà => valore_proprietà,
+		 * esempio:
+		 *  $this->js('console.log(true)', 'footer', array('ex'=>'value_ex'));
+		 *  quando verrà renderizzata la risorsa sarà uguale a questo:
+		 *  <script ex="value_ex">console.log(true)</script>
+		 *
+		 * @param string      $content
+		 * @param null|string $context
+		 * @param array  $property
 		 *
 		 * @return object
 		 */
-		public function js(string $content, ?string $context = 'body'): object
+		public function js(string $content, ?string $context = 'body', array $property = null): object
 		{
-			$this->push($this->js, 'script', $context, null, $content);
+			$property = $this->property($property, true);
+
+			$this->push($this->js, 'script', $context, $property, $content);
 			return $this;
 		}
 
@@ -172,19 +201,22 @@
 		 * Funzione che aggiunge codice css all'interno dell'array $css
 		 * Stesso procedimento della funzione js()
 		 *
-		 * @param \ResourcesManager\Services\string      $content
-		 * @param null|\ResourcesManager\Services\string $context
+		 * @param string      $content
+		 * @param null|string $context
+		 * @param array|null  $property
 		 *
 		 * @return object
 		 */
-		public function css(string $content, ?string $context = 'body'): object
+		public function css(string $content, ?string $context = 'body', array $property = null): object
 		{
-			$this->push($this->css, 'style', $context, null, $content);
+			$property = $this->property($property, true);
+
+			$this->push($this->css, 'style', $context, $property, $content);
 			return $this;
 		}
 
 		/**
-		 * Funzione che aggiunge script all'interno dell'array $scripts
+		 * Funzione che aggiunge script javascript all'interno dell'array $scripts
 		 * Stesso procedimento della funzione js()
 		 * Il parametro $asset serve per dichiarare se l'url dello script è interno al sistema o esterno
 		 *
@@ -194,17 +226,33 @@
 		 *
 		 * @return object
 		 */
-		public function script(string $script, ?string $context = 'body', bool $asset = true): object
+		public function script(string $url, ?string $context = 'body', array $property = null): object
 		{
-			$uri = $asset ? asset($script) : $script;
-
-			$property = $this->property(array("src" => $uri));
-			if (false !== strstr($context, 'async'))
-				$property .= "async";
-			if (false !== strstr($context, 'defer'))
-				$property .= "defer";
+			$property = array_merge($property, array("src" => $url)); //merge $property with url of script
+			$property = $this->property($property); //create string of property
 
 			$this->push($this->scripts, 'script', $context, $property);
+
+			return $this;
+		}
+
+		/**
+		 * Funzione che aggiunge fogli di stile css all'interno dell'array $style
+		 * Stesso procedimento della funzione js()
+		 * Il parametro $asset serve per dichiarare se l'url del file di stile è interno al sistema o esterno
+		 *
+		 * @param \ResourcesManager\Services\string      $style
+		 * @param null|\ResourcesManager\Services\string $context
+		 * @param \ResourcesManager\Services\bool        $asset
+		 *
+		 * @return $this
+		 */
+		public function style(string $url, ?string $context = 'body', array $property = null)
+		{
+			$property = array_merge($property, array("rel" => "stylesheet", "href" => $url));
+			$property = $this->property($property);
+
+			$this->push($this->style, 'link', $context, $property);
 
 			return $this;
 		}
@@ -224,28 +272,6 @@
 				$this->variable = array_merge($this->variable, $variable);
 			else
 				$this->variable[$name] = $variable;
-
-			return $this;
-		}
-
-		/**
-		 * Funzione che aggiunge script all'interno dell'array $style
-		 * Stesso procedimento della funzione js()
-		 * Il parametro $asset serve per dichiarare se l'url del file di stile è interno al sistema o esterno
-		 *
-		 * @param \ResourcesManager\Services\string      $style
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param \ResourcesManager\Services\bool        $asset
-		 *
-		 * @return $this
-		 */
-		public function style(string $style, ?string $context = 'body', bool $asset = true)
-		{
-			$uri = $asset ? asset($style) : $style;
-
-			$property = $this->property(array("rel" => "stylesheet", "href" => $uri));
-
-			$this->push($this->style, 'link', $context, $property);
 
 			return $this;
 		}

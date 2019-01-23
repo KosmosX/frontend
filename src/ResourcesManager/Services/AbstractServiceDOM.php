@@ -1,4 +1,5 @@
 <?php
+
 	namespace ResourcesManager\Services;
 
 	/**
@@ -7,6 +8,9 @@
 	 */
 	abstract class AbstractServiceDOM
 	{
+		/**
+		 * Defautl context
+		 */
 		const CONTEXT = array(
 			'head',
 			'body',
@@ -15,48 +19,49 @@
 			'async',
 		);
 
+		/**
+		 * Default template
+		 *
+		 * @var string
+		 */
 		protected $template = "<{{tag}} {{property}}>{{content}}</{{tag}}>";
 
+		/**
+		 * Template with self close
+		 *
+		 * @var string
+		 */
+		protected $templateSelf = "<{{tag}} {{property}} />";
+
+		/**
+		 * Context extra
+		 *
+		 * @var array
+		 */
 		protected $context = array();
 
 		/**
-		 * @param \ResourcesManager\Services\string      $get
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * Funzione per il recupero dei dati che verrano utilizzati dal DOM
+		 *
+		 * @param string      $resources
+		 * @param null|string $get
 		 *
 		 * @return mixed
 		 */
-		abstract public function load(string $get, ?string $context = null, ?string $name = null);
+		abstract public function dump(string $resources, ?string $get = null);
 
 		/**
-		 * Inizializzazione varibili
+		 * Funzione per rimuovere le risorse caricate.
+		 * È necessario specificare il tipo di risorsa presente come attributo della classe, successivamente bisogna
+		 * indicare il contesto che si vuole rimuovere.
+		 * Se si vuole eliminare una specifica risorsa attraverso il nome che le è stato assegnato durante il
+		 * caricamento basta passare oltre al $context anche il $name
 		 *
-		 * @param null|string $attr
-		 *
-		 * @return $this
-		 */
-		public function init(?string $attr = null)
-		{
-			if (null != $attr && property_exists(get_class($this), $attr))
-				$this->{$attr} = array();
-			else {
-				$attr = get_class_vars(get_class($this));
-
-				foreach (array_keys($attr) as $name) {
-					if ($name !== 'template')
-						$this->{$name} = array();
-				}
-			}
-			return $this;
-		}
-
-		/**
-		 * Rimossione di una valore dall'array specificato
-		 *
-		 * @param string      $type
+		 * @param string      $attr
+		 * @param string      $context
 		 * @param null|string $name
 		 *
-		 * @return $this
+		 * @return object
 		 */
 		public function forget(string $attr, string $context, ?string $name = null): object
 		{
@@ -71,13 +76,16 @@
 		}
 
 		/**
-		 * Controlla se è presente uno specifico contesto all'interno della risorsa
-		 * Oppure se è presente uno specifico item all'interno del contesto
+		 * Controlla se sono presenti delle risorse all'interno di un contesto;
+		 * Oppure se esiste una determinata risorsa all'interno di un contesto
 		 *
-		 * @param string      $type
+		 * @param string      $attr
+		 *                         name of attribute that contain resources
+		 * @param string      $context
 		 * @param null|string $name
 		 *
 		 * @return bool
+		 *             true if exist
 		 */
 		public function has(string $attr, string $context, ?string $name = null): bool
 		{
@@ -97,21 +105,23 @@
 		}
 
 		/**
-		 * Ripulisce il codice dai tag HTML e dai spazi bianchi in più, tagliando la lunghezza del testo, e sostituisce i caratteri speciali
+		 * Ripulisce il codice dai tag HTML e dai spazi bianchi in più, tagliando la lunghezza del testo, e sostituisce
+		 * i caratteri speciali
 		 *
 		 * @param string   $text
 		 * @param int|null $maxLength
 		 *
 		 * @return null|string
 		 */
-		public function cleanText(?string $text, ?int $maxLength = 250): ?string
+		public function cleanText(?string $text, ?int $maxLength = null): ?string
 		{
-			if (null === $text)
+			if (null == $text)
 				return '';
 
-			$text = trim(strip_tags($text));
+			$text = trim(strip_tags($text)); //remove space and tags html
 			$text = preg_replace("/\r|\n/", '', $text);
 
+			//remove charter if text is > of maxLength and add '...'
 			if (null != $maxLength) {
 				$length = mb_strlen($text);
 				$text = mb_substr($text, 0, $maxLength);
@@ -147,14 +157,80 @@
 		}
 
 		/**
-		 * Aggiunge un elemento al rispettivo attributo
-		 * Utilizzato dalla classi che estendono questa, per poter caricare all'interno degli attributi i valori desiderati
+		 * Recupera i contesti disponibili
 		 *
-		 * @param string      $context
-		 * @param null|string $name
-		 * @param null|string $property
+		 * @param bool $withDefault
+		 *
+		 * @return array
+		 */
+		public function getContext(bool $withDefault = true): array
+		{
+			return $withDefault ? array_merge(self::CONTEXT, $this->context) : $this->context;
+		}
+
+		/**
+		 * Setta i contesti extra
+		 *
+		 * @param array $contexts
+		 * @param bool  $override
+		 *
+		 * @return array
+		 */
+		public function setContext(array $contexts, bool $override = false): array
+		{
+			if ($override)
+				$this->context = array_merge($this->context, $contexts);
+			else
+				$this->context = $contexts;
+
+			return $this->context;
+		}
+
+		/**
+		 * Inizializzazione le varibili della classe che verrà estesa
+		 *
+		 * @param null|string $attr
 		 *
 		 * @return $this
+		 */
+		protected function init(?string $attr = null)
+		{
+			if (null != $attr && property_exists(get_class($this), $attr))
+				$this->{$attr} = array();
+			else {
+				$attr = get_class_vars(get_class($this));
+
+				foreach (array_keys($attr) as $name) {
+					if ($name !== 'template' && $name !== 'context')
+						$this->{$name} = array();
+				}
+			}
+			return $this;
+		}
+
+		/**
+		 * Aggiunge un elemento all'array passato (un attributo di classe)
+		 * Utilizzato dalla classi che estendono questa, per poter caricare all'interno degli attributi i valori delle risorse.
+		 * Le risorse inserite devono:
+		 * -specificare l'attirbuto su cui inserire i dati
+		 * -specificare il nome del tag HTML
+		 * -specificare il contesto e il nome(non obbligatorio) utilizzabile la dot notation per inserire contesto e nome risorsa 'body.nameResource'
+		 * -è possibile passare le proprietà da inserire nel tag
+		 * -è possibile passere il contenuto che verrà inserito all'interno del tag
+		 *
+		 * desiderati
+		 *
+		 * @param array       $attr
+		 * @param string      $tag
+		 *                        name of tag HTML
+		 * @param string      $context
+		 *                            context of resources
+		 * @param null|string $property
+		 *                             properties of tag HTML
+		 * @param null|string $content
+		 *                            content to be written inside the tag
+		 *
+		 * @return object
 		 */
 		protected function push(array &$attr, string $tag, string $context, ?string $property = null, ?string $content = null): object
 		{
@@ -174,7 +250,7 @@
 		}
 
 		/**
-		 * Restituisce il nome se presente
+		 * Recupera
 		 *
 		 * esempio:
 		 * $value = 'body'; return null
@@ -184,17 +260,20 @@
 		 *
 		 * @return null|string
 		 */
-		protected function checkName(?string $value): ?string
+		protected function checkName(?string $name): ?string
 		{
-			if (false !== strstr($value, '.')) {
-				[$context, $name] = explode('.', $value);
-				return $name;
-			}
-			return null;
+			$position = strpos($name, '.');
+			if(false === $position)
+				return null;
+
+			$name = mb_substr($name, $position + 1);
+
+			return $name;
 		}
 
 		/**
-		 * Resitusce il contesto
+		 * Resitusce il contesto che gli viene passato rimuovendo il nome e verificando se esiste all'interno dei contesti di default o extra.
+		 * Se non esiste viene assegnato in automatico il contesto 'body' oppure quello specificato come default(anch'esso deve essre presente nei contesti)
 		 *
 		 * esempio:
 		 * $value = 'body'; return 'body'
@@ -208,13 +287,12 @@
 		 */
 		protected function checkContext(?string $context, string $default = ''): string
 		{
-
-			$name = $this->checkName($context);
-
-			if (null != $name)
-				$context = str_replace("." . $name, '', $context);
+			$position = strpos($context, '.');
+			if(false !== $position)
+				$context = mb_substr($context, 0,$position - 1);
 
 			$rules = array_merge(self::CONTEXT, $this->context);
+
 			if (null == $context || false === in_array($context, $rules))
 				return in_array($default, $rules) ? $default : 'body';
 
@@ -222,7 +300,8 @@
 		}
 
 		/**
-		 * Funzione che processa i dati e crea il codice HTML sostituendo i valori al template
+		 * Funzione che processa la risorsa e la fa diventare un tag HTML sostituendo i valori passati al template di default.
+		 * Restituisce la stringa del tag appena creato
 		 *
 		 * @return string
 		 */
@@ -237,8 +316,9 @@
 		}
 
 		/**
-		 * Funzione utilizzate per renderizzare gli attributi, ovvero
-		 * restituire in modo corretto la stringa contenete tutti i valori HTML di quel specifico attributo (o contesto, o nome)
+		 * Funzione utilizzata per renderizzare le risorse presenti all'interno dell'attributo passato.
+		 * Restituisce in le risorse che sono state caricate come tag HTML come una singola stringa così da poterla utilizzare nel DOM o mandare nelle risposte text/html;
+		 * La stringa prodotta potrà contenere tutte le risorse di uno specifico contesto oppure una specifica risorsa di un determinato contesto utilizzato il nome assegnatogli
 		 *
 		 * @param null|string $context
 		 * @param string      $name
@@ -249,9 +329,10 @@
 		{
 			$render = null;
 
-			if (null == $context) {
+			if (null == $context)
 				$render = array_flatten($attr);
-			} else if (array_key_exists($context, $attr)) {
+
+			if (array_key_exists($context, $attr)) {
 				if (null == $name)
 					$render = $attr[$context];
 				if (array_key_exists($name, $attr[$context]))
@@ -262,13 +343,14 @@
 		}
 
 		/**
-		 * Funzione per generare la stringa delle proprietà dei tag HTML
-		 * il parametro $withNull se settato a true aggiungerà il valore anche se null ( key="null")
+		 * Funzione per generare la stringa che verrà inserita nelle proprietà dei tag HTML
+		 * L'array proprietà è un array associativo key => value dove la chiave è il nome della proprietà e value è il valore che gli vuoi assegnare
+		 * Il parametro $withNull se settato a true aggiungerà la key anche se è null
 		 * se settato su false non aggiungerà il valore ( key )
 		 *
-		 * esempio:
-		 * $property = array("key"=>"valore", "key2"=> null,"keyN"=>"valoreN")
-		 *
+		 * Example:
+		 * $property = array("key"=>"value", "key2"=> null,"keyN"=>"valueN")
+		 *  return 'key="value" key2 keyN="valueN"'
 		 * @param array $property
 		 *
 		 * @return null|string
@@ -278,7 +360,7 @@
 			$output = '';
 			foreach ($property as $key => $value) {
 				if (null != $value || true === $withNull)
-					$output .= $key . (is_string($value) ? "=\"" . $value . "\"" : null) . " ";
+					$output .= $key . (is_string($value) ? "=\"" . $value . "\"" : null) . (next($property) ? " " : null);
 			}
 			return $output;
 		}

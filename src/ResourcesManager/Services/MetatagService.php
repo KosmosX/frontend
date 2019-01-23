@@ -5,6 +5,18 @@
 	use ResourcesManager\Services\AbstractServiceDOM;
 
 	/**
+	 * Method to get tag HTML of metatag service
+	 * dump()
+	 * renderMeta()
+	 * renderOg()
+	 * renderExtra()
+	 *
+	 * Method to push resources and make tag HTML
+	 * meta()
+	 * og()
+	 * twitter()
+	 * extra()
+	 *
 	 * Class HtmlTagService
 	 * @package App\Serivces
 	 */
@@ -24,27 +36,29 @@
 		}
 
 		/**
-		 * Funzione per caricare le risorse nelle view
+		 * Funzione che permette di renderizzare una risorsa specifica, tra:
+		 * meta, og, extra, all
+		 * Il valore di ritorno sarà una stringa composta dai tag HTML (in base alla risorsa scelta)
 		 *
-		 * @param string      $get (recuperare uno degli attr)
-		 * @param null|string $context
-		 * @param string      $name
+		 * @param string      $resources
+		 * @param null|string $get
 		 *
 		 * @return null|string
 		 */
-		public function load(string $get, ?string $context = null, ?string $name = null): ? string
+		public function dump(string $resources, ?string $get = null): ? string
 		{
-			switch ($get) {
+			$name = $this->checkName($get);
+			$context = $this->checkContext($get);
+
+			switch ($resources) {
 				case 'meta':
 					return $this->renderMeta($context, $name);
-				case 'style':
+				case 'og':
 					return $this->renderOg($context, $name);
 				case 'extra':
 					return $this->renderExtra($context, $name);
 				case 'all':
 					return $this->renderAll();
-				case 'title':
-					return $this->title;
 				default:
 					return null;
 			}
@@ -93,11 +107,11 @@
 
 		/**
 		 * Add tag to meta
-		 *
+
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \App\Serivces\MetatagService
+		 * @return \ResourcesManager\Services\MetatagService
 		 */
 		public function meta(string $name, ?string $value): MetatagService
 		{
@@ -113,7 +127,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \App\Serivces\MetatagService
+		 * @return \ResourcesManager\Services\MetatagService
 		 */
 		public function twitter(string $name, ?string $value): MetatagService
 		{
@@ -126,9 +140,9 @@
 		 *
 		 * @param string      $name
 		 * @param null|string $value
-		 * @param bool        $prefix
+		 * @param null|string $prefix
 		 *
-		 * @return \App\Serivces\MetatagService
+		 * @return \ResourcesManager\Services\MetatagService
 		 */
 		public function og(string $name, ?string $value, ?string $prefix = null): MetatagService
 		{
@@ -147,7 +161,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \App\Serivces\MetatagService
+		 * @return \ResourcesManager\Services\MetatagService
 		 */
 		public function extra(string $type, string $name, ?string $value): MetatagService
 		{
