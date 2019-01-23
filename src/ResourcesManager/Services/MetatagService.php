@@ -47,6 +47,8 @@
 		 */
 		public function dump(string $resources, ?string $get = null): ? string
 		{
+			$get = 'head.' . $get;
+
 			switch ($resources) {
 				case 'meta':
 					return $this->renderMeta($get);
@@ -76,9 +78,9 @@
 		 *
 		 * @return string
 		 */
-		public function renderOg(?string $context = null, ?string $name = null): ?string
+		public function renderOg(?string $get = null): ?string
 		{
-			return $this->rendering($this->og, $context, $name);
+			return $this->rendering($this->og, $get);
 		}
 
 		/**
@@ -104,7 +106,7 @@
 
 		/**
 		 * Add tag to meta
-
+		 *
 		 * @param string      $name
 		 * @param null|string $value
 		 *

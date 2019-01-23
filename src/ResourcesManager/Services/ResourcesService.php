@@ -79,10 +79,10 @@
 		 *
 		 * @return null|string
 		 */
-		protected function renderScript(?string $context = null, ?string $name = null): ?string
+		protected function renderScript(?string $get = null): ?string
 		{
 
-			return $this->rendering($this->scripts, $context, $name);
+			return $this->rendering($this->scripts, $get);
 		}
 
 		/**
@@ -94,9 +94,9 @@
 		 *
 		 * @return null|string
 		 */
-		protected function renderStyle(?string $context = null, ?string $name = null): ?string
+		protected function renderStyle(?string $get = null): ?string
 		{
-			return $this->rendering($this->style, $context, $name);
+			return $this->rendering($this->style, $get);
 		}
 
 		/**
@@ -146,9 +146,9 @@
 		 *
 		 * @return null|string
 		 */
-		protected function renderJs(?string $context = null, ?string $name = null): ?string
+		protected function renderJs(?string $get = null): ?string
 		{
-			return $this->rendering($this->js, $context, $name);
+			return $this->rendering($this->js, $get);
 		}
 
 		/**
@@ -159,9 +159,9 @@
 		 *
 		 * @return null|string
 		 */
-		protected function renderCss(?string $context = null, ?string $name = null): ?string
+		protected function renderCss(?string $get = null): ?string
 		{
-			return $this->rendering($this->css, $context, $name);
+			return $this->rendering($this->css, $get);
 		}
 
 		/**

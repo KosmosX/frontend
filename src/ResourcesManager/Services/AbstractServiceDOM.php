@@ -235,8 +235,8 @@
 		protected function push(array &$attr, string $tag, string $context, ?string $property = null, ?string $content = null): object
 		{
 			try {
-				$context = $this->checkContext($context);
 				$name = $this->checkName($context);
+				$context = $this->checkContext($context);
 
 				$output = $this->templateProcessor($tag, $property, $content);
 				if (null != $name)
@@ -289,7 +289,7 @@
 		{
 			$position = strpos($context, '.');
 			if(false !== $position)
-				$context = mb_substr($context, 0,$position - 1);
+				$context = mb_substr($context, 0,$position);
 
 			$rules = array_merge(self::CONTEXT, $this->context);
 
