@@ -1,12 +1,12 @@
 <?php
 
-	namespace ResourcesManager\Services;
+	namespace ResourcesManager\Utility;
 
 	/**
 	 * Class AbstractServiceDOM
 	 * @package ResourcesManager\Services
 	 */
-	abstract class AbstractServiceDOM
+	abstract class ResourceProcessor
 	{
 		/**
 		 * Defautl context
@@ -223,7 +223,7 @@
 		 * @param array       $attr
 		 * @param string      $tag
 		 *                        name of tag HTML
-		 * @param string      $context
+		 * @param string      $put
 		 *                            context and name of resources (dot notation)
 		 * @param null|string $property
 		 *                             properties of tag HTML
@@ -232,11 +232,11 @@
 		 *
 		 * @return object
 		 */
-		protected function push(array &$attr, string $tag, string $context, ?string $property = null, ?string $content = null): object
+		protected function push(array &$attr, string $tag, string $put, ?string $property = null, ?string $content = null): object
 		{
 			try {
-				$name = $this->checkName($context);
-				$context = $this->checkContext($context);
+				$context = $this->checkContext($put);
+				$name = $this->checkName($put);
 
 				$output = $this->templateProcessor($tag, $property, $content);
 				if (null != $name)

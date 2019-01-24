@@ -1,10 +1,10 @@
 <?php
 
-	namespace ResourcesManager;
+	namespace ResourcesManager\Providers;
 
 	use Illuminate\Support\ServiceProvider;
 
-	class ResourcesManagerServiceProviders extends ServiceProvider
+	class ResourcesManagerServiceProvider extends ServiceProvider
 	{
 		/**
 		 * Register any application services.

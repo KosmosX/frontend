@@ -2,7 +2,7 @@
 
 	namespace ResourcesManager\Services;
 
-	use ResourcesManager\Services\AbstractServiceDOM;
+	use ResourcesManager\Utility\ResourceProcessor;
 
 	/**
 	 * Method to get tag HTML of resources service
@@ -23,7 +23,7 @@
 	 * Class ResourceService
 	 * @package App\Services
 	 */
-	class ResourcesService extends AbstractServiceDOM
+	class ResourcesService extends ResourceProcessor
 	{
 		protected $js;
 
@@ -141,8 +141,7 @@
 		/**
 		 * Render $js, stesso funzionamento di renderScript, solamente che renderizza snippet di codice js
 		 *
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * @param null|string $get
 		 *
 		 * @return null|string
 		 */
@@ -154,8 +153,7 @@
 		/**
 		 * Render $css, stesso funzionamento di renderScript, solamente che renderizza snippet di codice css
 		 *
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * @param null|string $get
 		 *
 		 * @return null|string
 		 */
@@ -181,16 +179,16 @@
 		 *  <script ex="value_ex">console.log(true)</script>
 		 *
 		 * @param string      $content
-		 * @param null|string $context
+		 * @param null|string $put
 		 * @param array  $property
 		 *
 		 * @return object
 		 */
-		public function js(string $content, ?string $context = 'body', array $property = null): object
+		public function js(string $content, ?string $put = 'body', array $property = null): object
 		{
 			$property = $this->property($property, true);
 
-			$this->push($this->js, 'script', $context, $property, $content);
+			$this->push($this->js, 'script', $put, $property, $content);
 			return $this;
 		}
 
@@ -199,16 +197,16 @@
 		 * Stesso procedimento della funzione js()
 		 *
 		 * @param string      $content
-		 * @param null|string $context
+		 * @param null|string $put
 		 * @param array|null  $property
 		 *
 		 * @return object
 		 */
-		public function css(string $content, ?string $context = 'body', array $property = null): object
+		public function css(string $content, ?string $put = 'body', array $property = null): object
 		{
 			$property = $this->property($property, true);
 
-			$this->push($this->css, 'style', $context, $property, $content);
+			$this->push($this->css, 'style', $put, $property, $content);
 			return $this;
 		}
 
@@ -217,18 +215,18 @@
 		 * Stesso procedimento della funzione js()
 		 * Il parametro $asset serve per dichiarare se l'url dello script è interno al sistema o esterno
 		 *
-		 * @param \ResourcesManager\Services\string      $script
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param \ResourcesManager\Services\bool        $asset
+		 * @param string      $url
+		 * @param null|string $put
+		 * @param array|null  $property
 		 *
 		 * @return object
 		 */
-		public function script(string $url, ?string $context = 'body', array $property = null): object
+		public function script(string $url, ?string $put = 'body', array $property = null): object
 		{
 			$property = array_merge($property, array("src" => $url)); //merge $property with url of script
 			$property = $this->property($property); //create string of property
 
-			$this->push($this->scripts, 'script', $context, $property);
+			$this->push($this->scripts, 'script', $put, $property);
 
 			return $this;
 		}
@@ -238,18 +236,18 @@
 		 * Stesso procedimento della funzione js()
 		 * Il parametro $asset serve per dichiarare se l'url del file di stile è interno al sistema o esterno
 		 *
-		 * @param \ResourcesManager\Services\string      $style
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param \ResourcesManager\Services\bool        $asset
+		 * @param string      $url
+		 * @param null|string $put
+		 * @param array|null  $property
 		 *
 		 * @return $this
 		 */
-		public function style(string $url, ?string $context = 'body', array $property = null)
+		public function style(string $url, ?string $put = 'body', array $property = null)
 		{
 			$property = array_merge($property, array("rel" => "stylesheet", "href" => $url));
 			$property = $this->property($property);
 
-			$this->push($this->style, 'link', $context, $property);
+			$this->push($this->style, 'link', $put, $property);
 
 			return $this;
 		}
@@ -259,7 +257,7 @@
 		 * È necessario aggiungere il valore della varibile ed eventualmente il nome rifereto alla varibile
 		 *
 		 * @param                                        $variable
-		 * @param \ResourcesManager\Services\string|null $name
+		 * @param string|null $name
 		 *
 		 * @return $this
 		 */

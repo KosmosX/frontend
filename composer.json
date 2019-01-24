@@ -1,7 +1,7 @@
 {
     "name": "fabrizio-cafolla/resources-manager",
     "description": "",
-    "keywords": ["laravel", "lumen"],
+    "keywords": ["laravel", "lumen", "resources", "manager", "opengraph", "metatag"],
     "license": "MIT",
     "type": "package",
     "authors": [

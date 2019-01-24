@@ -2,7 +2,7 @@
 
 	namespace ResourcesManager\Services;
 
-	use ResourcesManager\Services\AbstractServiceDOM;
+	use ResourcesManager\Utility\ResourceProcessor;
 
 	/**
 	 * Method to get tag HTML of metatag service
@@ -20,7 +20,7 @@
 	 * Class HtmlTagService
 	 * @package App\Serivces
 	 */
-	class MetatagService extends AbstractServiceDOM
+	class MetatagService extends ResourceProcessor
 	{
 		const PREFIX_OG = 'og:';
 
@@ -68,9 +68,9 @@
 		 *
 		 * @return string
 		 */
-		public function renderMeta(?string $context = null, ?string $name = null): ?string
+		public function renderMeta(?string $get = null): ?string
 		{
-			return $this->rendering($this->meta, $context, $name);
+			return $this->rendering($this->meta, $get);
 		}
 
 		/**
@@ -88,9 +88,9 @@
 		 *
 		 * @return string
 		 */
-		public function renderExtra(?string $context = null, ?string $name = null): ?string
+		public function renderExtra(?string $get = null): ?string
 		{
-			return $this->rendering($this->extra, $context, $name);
+			return $this->rendering($this->extra, $get);
 		}
 
 		/**
