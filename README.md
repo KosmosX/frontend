@@ -108,6 +108,24 @@ Render tags
     ->setContext()                    //add extra context to default
     ->cleanText()                     //clean string (remove tag and special charter)
 
+**Example**
+
+     $metatag->og('title', 'Resources Manager')
+             ->og('description', 'Og description')
+             ->twitter('title', 'Resources Manager')
+             ->twitter('description', 'Twitter description');
+    
+    return $metatag->dump('og');
+    //output:
+        <meta property="og:title" content="Resources Manager"></meta>
+        <meta property="og:description" content="Og description"></meta>
+        <meta property="twitter:title" content="Resources Manager"></meta>
+        <meta property="twitter:description" content="Twitter description"></meta>
+    
+    return $metatag->dump('og', 'og:title');
+    //output:
+            <meta property="og:title" content="Resources Manager"></meta>
+
 ### Support
 
 The pull requests will be reviewed (document the code or write a detailed comment) and if successful they will be accepted
