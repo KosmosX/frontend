@@ -81,7 +81,7 @@
 		 * If you get a specific og use $get
 		 *
 		 * @param null|string $get
-		 *                      name of og tag (ex: 'title', 'image:alt')
+		 *                      name of og tag (ex: 'og:title', 'og:image:alt', 'twitter:description')
 		 * @return null|string
 		 */
 		protected function renderOg(?string $get = null): ?string
@@ -107,7 +107,7 @@
 		 *
 		 * @return string
 		 */
-		public function renderAll(): string
+		protected function renderAll(): string
 		{
 			$tags = $this->renderExtra() . $this->renderMeta() . $this->renderOg();
 			return $tags;
@@ -163,7 +163,8 @@
 		{
 			$value = $this->cleanText($value);
 
-			$property = $this->property(array("property" => ($prefix ?: self::PREFIX_OG) . $name, "content" => $value));
+			$name = ($prefix ? $prefix . ':' : self::PREFIX_OG) . $name;
+			$property = $this->property(array("property" => $name, "content" => $value));
 			$this->push($this->og, 'meta', 'head.' . $name, $property, null);
 
 			return $this;
