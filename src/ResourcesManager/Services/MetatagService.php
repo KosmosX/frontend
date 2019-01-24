@@ -11,7 +11,7 @@
 	 * renderOg()
 	 * renderExtra()
 	 *
-	 * Method to push resources and make tag HTML
+	 * Method to push metatag and make tag HTML
 	 * meta()
 	 * og()
 	 * twitter()
@@ -42,12 +42,12 @@
 		 *
 		 * @param string      $resources
 		 * @param null|string $get
-		 *
+		 *                      nome del tag da recuperare
 		 * @return null|string
 		 */
 		public function dump(string $resources, ?string $get = null): ? string
 		{
-			$get = 'head.' . $get;
+			$get = 'head.' . $get; //Metatag service only head context
 
 			switch ($resources) {
 				case 'meta':
@@ -64,37 +64,46 @@
 		}
 
 		/**
-		 * Rendering meta tag, output html to print in the DOM
+		 * Get meta tags, return string of HTML code.
+		 * If you get a specific metatags use $get
 		 *
-		 * @return string
+		 * @param null|string $get
+		 *                      name of propriety (ex: 'description', 'key')
+		 * @return null|string
 		 */
-		public function renderMeta(?string $get = null): ?string
+		protected function renderMeta(?string $get = null): ?string
 		{
 			return $this->rendering($this->meta, $get);
 		}
 
 		/**
-		 * Rendering open graph, output html to print in the DOM
+		 * Get open graph tags, return HTML code.
+		 * If you get a specific og use $get
 		 *
-		 * @return string
+		 * @param null|string $get
+		 *                      name of og tag (ex: 'title', 'image:alt')
+		 * @return null|string
 		 */
-		public function renderOg(?string $get = null): ?string
+		protected function renderOg(?string $get = null): ?string
 		{
 			return $this->rendering($this->og, $get);
 		}
 
 		/**
-		 * Rendering extra tags, output html to print in the DOM
+		 * Get extra tags, return HTML code.
+		 * If you get a specific extra use $get
 		 *
-		 * @return string
+		 * @param null|string $get
+		 *
+		 * @return null|string
 		 */
-		public function renderExtra(?string $get = null): ?string
+		protected function renderExtra(?string $get = null): ?string
 		{
 			return $this->rendering($this->extra, $get);
 		}
 
 		/**
-		 * Rendering all tags, output html to print in the DOM
+		 * Get all tags, return HTML code.
 		 *
 		 * @return string
 		 */
@@ -105,10 +114,13 @@
 		}
 
 		/**
-		 * Add tag to meta
+		 * Add tag to meta.
+		 * Context is always 'head'
 		 *
 		 * @param string      $name
+		 *                         name of propriety (ex: 'description')
 		 * @param null|string $value
+		 *                          value of propriety (ex 'Package for...')
 		 *
 		 * @return \ResourcesManager\Services\MetatagService
 		 */
@@ -123,6 +135,9 @@
 		}
 
 		/**
+		 * Add og twitter to opengraph array.
+		 * Context is always 'head'
+		 *
 		 * @param string      $name
 		 * @param null|string $value
 		 *
@@ -135,7 +150,8 @@
 		}
 
 		/**
-		 * Add tag to og
+		 * Add tag og to opengraph array
+		 * Context is always 'head'
 		 *
 		 * @param string      $name
 		 * @param null|string $value
@@ -154,7 +170,8 @@
 		}
 
 		/**
-		 * Add meta tag extra with different type name
+		 * Add meta tag extra (charset, viewport etc..)
+		 * Context is always 'head'
 		 *
 		 * @param string      $type
 		 * @param string      $name
