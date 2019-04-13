@@ -2,9 +2,10 @@
 
 	namespace ResourcesManager\Services;
 
-	use ResourcesManager\Utility\ResourceProcessor;
+	use ResourcesManager\Services\Abstracts\ResourceProcessor;
+    use ResourcesManager\Services\Interfaces\FrontManagerInterface;
 
-	/**
+    /**
 	 * Method to get tag HTML of metatag service
 	 * dump()
 	 * renderMeta()
@@ -20,7 +21,7 @@
 	 * Class HtmlTagService
 	 * @package App\Serivces
 	 */
-	class MetatagService extends ResourceProcessor
+	class MetatagService extends ResourceProcessor implements FrontManagerInterface
 	{
 		const PREFIX_OG = 'og:';
 

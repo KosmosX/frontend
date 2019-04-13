@@ -2,9 +2,10 @@
 
 	namespace ResourcesManager\Services;
 
-	use ResourcesManager\Utility\ResourceProcessor;
+	use ResourcesManager\Services\Abstracts\ResourceProcessor;
+    use ResourcesManager\Services\Interfaces\FrontManagerInterface;
 
-	/**
+    /**
 	 * Method to get tag HTML of resources service
 	 * dump()
 	 * renderStyle()
@@ -23,7 +24,7 @@
 	 * Class ResourceService
 	 * @package App\Services
 	 */
-	class ResourcesService extends ResourceProcessor
+	class ResourcesService extends ResourceProcessor implements FrontManagerInterface
 	{
 		protected $js;
 
@@ -184,7 +185,7 @@
 		 *
 		 * @return object
 		 */
-		public function js(string $content, ?string $put = 'body', array $property = null): object
+		public function js(string $content, ?string $put = 'body', array $property = array()): object
 		{
 			$property = $this->property($property, true);
 
@@ -202,7 +203,7 @@
 		 *
 		 * @return object
 		 */
-		public function css(string $content, ?string $put = 'body', array $property = null): object
+		public function css(string $content, ?string $put = 'body', array $property = array()): object
 		{
 			$property = $this->property($property, true);
 
@@ -221,7 +222,7 @@
 		 *
 		 * @return object
 		 */
-		public function script(string $url, ?string $put = 'body', array $property = null): object
+		public function script(string $url, ?string $put = 'body', array $property = array()): object
 		{
 			$property = array_merge($property, array("src" => $url)); //merge $property with url of script
 			$property = $this->property($property); //create string of property
@@ -242,7 +243,7 @@
 		 *
 		 * @return $this
 		 */
-		public function style(string $url, ?string $put = 'body', array $property = null)
+		public function style(string $url, ?string $put = 'body', array $property = array())
 		{
 			$property = array_merge($property, array("rel" => "stylesheet", "href" => $url));
 			$property = $this->property($property);

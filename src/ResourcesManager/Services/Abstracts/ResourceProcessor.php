@@ -1,6 +1,6 @@
 <?php
 
-	namespace ResourcesManager\Utility;
+	namespace ResourcesManager\Services\Abstracts;
 
 	/**
 	 * Class AbstractServiceDOM

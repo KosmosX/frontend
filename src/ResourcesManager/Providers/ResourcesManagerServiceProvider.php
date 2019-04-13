@@ -34,5 +34,6 @@
 			 */
 			$this->app->singleton('service.resources', 'ResourcesManager\Services\ResourcesService');
 			$this->app->singleton('service.metatag', 'ResourcesManager\Services\MetatagService');
+			$this->app->singleton('factory.manager', 'ResourcesManager\Factory\FrontManagerFactory');
 		}
 	}
