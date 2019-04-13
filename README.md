@@ -1,22 +1,22 @@
-# Resources Manager package
+# Front Manager package
 ![](https://img.shields.io/badge/version-1.0.0-green.svg)
 ![](https://img.shields.io/badge/PHP->=7.1.3-blue.svg)
 ![](https://img.shields.io/badge/Laravel->=5.6-red.svg)
 ![](https://img.shields.io/badge/Lumen->=5.6-red.svg)
 
-*Resources manager for: Js, CSS, Metatag, Open Graph. You can add and load resources with simple function.*
+*Frontend manager for: Js, CSS, Metatag, Open Graph. You can add and load resources with simple function.*
 
 ## Installation
 
 Install with console command
 
-    composer require fabrizio-cafolla/resources-manager
+    composer require fabrizio-cafolla/front-manager
     
 Or add in composore.json one of:
 
-    "fabrizio-cafolla/resources-manager": "~1" // version >=1.0.0 <2.0.0
+    "fabrizio-cafolla/front-manager": "~1" // version >=1.0.0 <2.0.0
     
-    "fabrizio-cafolla/resources-manager": "1.0.*" // version >=1.0.0 <1.1.0
+    "fabrizio-cafolla/front-manager": "1.0.*" // version >=1.0.0 <1.1.0
 
 **Support** (If you use a smaller version, compatibility is not guaranteed)
 
@@ -28,13 +28,13 @@ Add provider in config file app.php (if Laravel)
 
     'providers' => array(
         ...
-        'ResourcesManager\Providers\ResourcesManagerServiceProvider',
+        'FrontManager\Providers\FrontManagerServiceProvider',
     ),
 
 Register provider in bootstrap file (if Lumen)
 
     
- 	$app->register(ResourcesManager\Providers\ResourcesManagerServiceProvider);
+ 	$app->register(FrontManager\Providers\FrontManagerServiceProvider);
  	
  	$app->withFacades(); //uncomment if you want to use the Facades of the package
  	
@@ -42,6 +42,8 @@ Register provider in bootstrap file (if Lumen)
 
 **Basic usage**
 
+    $resources = (new ManagerFactory())->resources();
+    or
     $resources = new ResourcesService();
     
     $resources->script('https://code.jquery.com/jquery-3.3.1.min.js', 'head.jquery')

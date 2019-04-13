@@ -1,9 +1,9 @@
 <?php
 
-	namespace ResourcesManager\Services;
+	namespace FrontManager\Services;
 
-	use ResourcesManager\Services\Abstracts\ResourceProcessor;
-    use ResourcesManager\Services\Interfaces\FrontManagerInterface;
+	use FrontManager\Services\Abstracts\ResourceProcessor;
+    use FrontManager\Services\Interfaces\FrontManagerInterface;
 
     /**
 	 * Method to get tag HTML of resources service
@@ -75,8 +75,8 @@
 		 * Il primo parametro serve per recupere i gli script renderizzati (cioè tag html) di uno specifico contesto
 		 * Il secondo per recuperare un solo script renderizzato da un contesto specifico
 		 *
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * @param null|\FrontManager\Services\string $context
+		 * @param null|\FrontManager\Services\string $name
 		 *
 		 * @return null|string
 		 */
@@ -90,8 +90,8 @@
 		 * Render $style, stesso funzionamento di renderScript, solamente che renderizza file css interni o esterni al
 		 * sistema
 		 *
-		 * @param null|\ResourcesManager\Services\string $context
-		 * @param null|\ResourcesManager\Services\string $name
+		 * @param null|\FrontManager\Services\string $context
+		 * @param null|\FrontManager\Services\string $name
 		 *
 		 * @return null|string
 		 */

@@ -1,5 +1,5 @@
 <?php
-namespace ResourcesManager\Factory\Interfaces;
+namespace FrontManager\Factory\Interfaces;
 
 
 interface FactoryInterface

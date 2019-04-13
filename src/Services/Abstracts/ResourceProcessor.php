@@ -1,10 +1,10 @@
 <?php
 
-	namespace ResourcesManager\Services\Abstracts;
+	namespace FrontManager\Services\Abstracts;
 
 	/**
 	 * Class AbstractServiceDOM
-	 * @package ResourcesManager\Services
+	 * @package FrontManager\Services
 	 */
 	abstract class ResourceProcessor
 	{

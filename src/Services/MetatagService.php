@@ -1,9 +1,9 @@
 <?php
 
-	namespace ResourcesManager\Services;
+	namespace FrontManager\Services;
 
-	use ResourcesManager\Services\Abstracts\ResourceProcessor;
-    use ResourcesManager\Services\Interfaces\FrontManagerInterface;
+	use FrontManager\Services\Abstracts\ResourceProcessor;
+    use FrontManager\Services\Interfaces\FrontManagerInterface;
 
     /**
 	 * Method to get tag HTML of metatag service
@@ -123,7 +123,7 @@
 		 * @param null|string $value
 		 *                          value of propriety (ex 'Package for...')
 		 *
-		 * @return \ResourcesManager\Services\MetatagService
+		 * @return \FrontManager\Services\MetatagService
 		 */
 		public function meta(string $name, ?string $value): MetatagService
 		{
@@ -142,7 +142,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \ResourcesManager\Services\MetatagService
+		 * @return \FrontManager\Services\MetatagService
 		 */
 		public function twitter(string $name, ?string $value): MetatagService
 		{
@@ -158,7 +158,7 @@
 		 * @param null|string $value
 		 * @param null|string $prefix
 		 *
-		 * @return \ResourcesManager\Services\MetatagService
+		 * @return \FrontManager\Services\MetatagService
 		 */
 		public function og(string $name, ?string $value, ?string $prefix = null): MetatagService
 		{
@@ -179,7 +179,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \ResourcesManager\Services\MetatagService
+		 * @return \FrontManager\Services\MetatagService
 		 */
 		public function extra(string $type, string $name, ?string $value): MetatagService
 		{

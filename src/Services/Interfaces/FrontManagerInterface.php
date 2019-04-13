@@ -1,6 +1,6 @@
 <?php
 
-namespace ResourcesManager\Services\Interfaces;
+namespace FrontManager\Services\Interfaces;
 
 interface FrontManagerInterface
 {

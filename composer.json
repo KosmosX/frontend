@@ -1,5 +1,5 @@
 {
-    "name": "fabrizio-cafolla/resources-manager",
+    "name": "fabrizio-cafolla/front-manager",
     "description": "",
     "keywords": ["laravel", "lumen", "resources", "manager", "opengraph", "metatag"],
     "license": "MIT",
@@ -23,7 +23,7 @@
 
     "autoload": {
         "psr-4": {
-            "ResourcesManager\\": "src/ResourcesManager"
+            "FrontManager\\": "src/"
         }
     },
 
