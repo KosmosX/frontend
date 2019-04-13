@@ -6,7 +6,7 @@
 	 * Class AbstractServiceDOM
 	 * @package FrontManager\Services
 	 */
-	abstract class ResourceProcessor
+	abstract class ServiceProcessor
 	{
 		/**
 		 * Defautl context

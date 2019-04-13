@@ -2,7 +2,7 @@
 
 	namespace FrontManager\Services;
 
-	use FrontManager\Services\Abstracts\ResourceProcessor;
+	use FrontManager\Services\Abstracts\ServiceProcessor;
     use FrontManager\Services\Interfaces\FrontManagerInterface;
 
     /**
@@ -21,7 +21,7 @@
 	 * Class HtmlTagService
 	 * @package App\Serivces
 	 */
-	class MetatagService extends ResourceProcessor implements FrontManagerInterface
+	class MetatagService extends ServiceProcessor implements FrontManagerInterface
 	{
 		const PREFIX_OG = 'og:';
 

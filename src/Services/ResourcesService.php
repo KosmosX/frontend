@@ -2,7 +2,7 @@
 
 	namespace FrontManager\Services;
 
-	use FrontManager\Services\Abstracts\ResourceProcessor;
+	use FrontManager\Services\Abstracts\ServiceProcessor;
     use FrontManager\Services\Interfaces\FrontManagerInterface;
 
     /**
@@ -24,7 +24,7 @@
 	 * Class ResourceService
 	 * @package App\Services
 	 */
-	class ResourcesService extends ResourceProcessor implements FrontManagerInterface
+	class ResourcesService extends ServiceProcessor implements FrontManagerInterface
 	{
 		protected $js;
 
