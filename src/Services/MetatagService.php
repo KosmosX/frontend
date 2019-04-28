@@ -1,9 +1,9 @@
 <?php
 
-	namespace FrontManager\Services;
+	namespace Kosmosx\Frontend\Services;
 
-	use FrontManager\Services\Abstracts\ServiceProcessor;
-    use FrontManager\Services\Interfaces\FrontManagerInterface;
+	use Kosmosx\Frontend\Services\Abstracts\ServiceProcessor;
+    use Kosmosx\Frontend\Services\Interfaces\FrontManagerInterface;
 
     /**
 	 * Method to get tag HTML of metatag service
@@ -123,7 +123,7 @@
 		 * @param null|string $value
 		 *                          value of propriety (ex 'Package for...')
 		 *
-		 * @return \FrontManager\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagService
 		 */
 		public function meta(string $name, ?string $value): MetatagService
 		{
@@ -142,7 +142,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \FrontManager\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagService
 		 */
 		public function twitter(string $name, ?string $value): MetatagService
 		{
@@ -158,7 +158,7 @@
 		 * @param null|string $value
 		 * @param null|string $prefix
 		 *
-		 * @return \FrontManager\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagService
 		 */
 		public function og(string $name, ?string $value, ?string $prefix = null): MetatagService
 		{
@@ -179,7 +179,7 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \FrontManager\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagService
 		 */
 		public function extra(string $type, string $name, ?string $value): MetatagService
 		{

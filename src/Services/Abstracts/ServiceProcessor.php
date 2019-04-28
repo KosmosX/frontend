@@ -1,10 +1,10 @@
 <?php
 
-	namespace FrontManager\Services\Abstracts;
+	namespace Kosmosx\Frontend\Services\Abstracts;
 
 	/**
 	 * Class AbstractServiceDOM
-	 * @package FrontManager\Services
+	 * @package Kosmosx\Frontend\Services
 	 */
 	abstract class ServiceProcessor
 	{

@@ -10,13 +10,13 @@
 
 Install with console command
 
-    composer require fabrizio-cafolla/front-manager
+    composer require kosmosx/frontend
     
 Or add in composore.json one of:
 
-    "fabrizio-cafolla/front-manager": "~1" // version >=1.0.0 <2.0.0
+    "kosmosx/frontend": "~1" // version >=1.0.0 <2.0.0
     
-    "fabrizio-cafolla/front-manager": "1.0.*" // version >=1.0.0 <1.1.0
+    "kosmosx/frontend": "1.0.*" // version >=1.0.0 <1.1.0
 
 **Support** (If you use a smaller version, compatibility is not guaranteed)
 
@@ -28,13 +28,13 @@ Add provider in config file app.php (if Laravel)
 
     'providers' => array(
         ...
-        'FrontManager\Providers\FrontManagerServiceProvider',
+        'Kosmosx\Frontend\Providers\Kosmosx\FrontendServiceProvider',
     ),
 
 Register provider in bootstrap file (if Lumen)
 
     
- 	$app->register(FrontManager\Providers\FrontManagerServiceProvider);
+ 	$app->register(Kosmosx\Frontend\Providers\FrontManagerServiceProvider);
  	
  	$app->withFacades(); //uncomment if you want to use the Facades of the package
  	

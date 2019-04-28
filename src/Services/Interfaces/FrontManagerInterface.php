@@ -1,6 +1,6 @@
 <?php
 
-namespace FrontManager\Services\Interfaces;
+namespace Kosmosx\Frontend\Services\Interfaces;
 
 interface FrontManagerInterface
 {

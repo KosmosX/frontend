@@ -1,6 +1,6 @@
 {
-    "name": "cosmo-microservice/front-manager",
-    "description": "",
+    "name": "kosmosx/frontend",
+    "description": "Frontend manager for resources and metatag",
     "keywords": ["laravel", "lumen", "resources", "manager", "opengraph", "metatag"],
     "license": "MIT",
     "type": "package",
@@ -23,7 +23,7 @@
 
     "autoload": {
         "psr-4": {
-            "FrontManager\\": "src/"
+            "Kosmosx\\Frontend\\": "src/"
         }
     },
 

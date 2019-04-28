@@ -1,10 +1,10 @@
 <?php
 
-namespace FrontManager\Factory;
+namespace Kosmosx\Frontend\Factory;
 
-use FrontManager\Factory\Interfaces\FactoryInterface;
-use FrontManager\Services\MetatagService;
-use FrontManager\Services\ResourcesService;
+use Kosmosx\Frontend\Factory\Interfaces\FactoryInterface;
+use Kosmosx\Frontend\Services\MetatagService;
+use Kosmosx\Frontend\Services\ResourcesService;
 
 class ManagerFactory implements FactoryInterface
 {

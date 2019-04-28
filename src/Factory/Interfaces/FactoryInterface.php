@@ -1,5 +1,5 @@
 <?php
-namespace FrontManager\Factory\Interfaces;
+namespace Kosmosx\Frontend\Factory\Interfaces;
 
 
 interface FactoryInterface
