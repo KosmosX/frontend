@@ -2,7 +2,7 @@
 
 namespace Kosmosx\Frontend\Services\Interfaces;
 
-interface FrontManagerInterface
+interface FrontendInterface
 {
     function dump(string $resources, ?string $get = null): ? string;
 }

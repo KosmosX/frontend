@@ -6,7 +6,7 @@
 	 * Class AbstractServiceDOM
 	 * @package Kosmosx\Frontend\Services
 	 */
-	abstract class ServiceProcessor
+	abstract class FrontendProcessor
 	{
 		/**
 		 * Defautl context
@@ -24,14 +24,14 @@
 		 *
 		 * @var string
 		 */
-		protected $template = "<{{tag}} {{property}}>{{content}}</{{tag}}>";
+		const TEMPLATE = "<{{tag}} {{property}}>{{content}}</{{tag}}>";
 
 		/**
 		 * Template with self close
 		 *
 		 * @var string
 		 */
-		protected $templateSelf = "<{{tag}} {{property}} />";
+		const TEMPLATE_SELF = "<{{tag}} {{property}} />";
 
 		/**
 		 * Context extra
@@ -310,7 +310,7 @@
 			$search = array('{{tag}}', '{{property}}', '{{content}}');
 			$replace = array($tag, $property, $content);
 
-			$output = str_replace($search, $replace, $this->template);
+			$output = str_replace($search, $replace, self::TEMPLATE);
 
 			return $output;
 		}

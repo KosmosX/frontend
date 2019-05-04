@@ -2,8 +2,8 @@
 
 	namespace Kosmosx\Frontend\Services;
 
-	use Kosmosx\Frontend\Services\Abstracts\ServiceProcessor;
-    use Kosmosx\Frontend\Services\Interfaces\FrontManagerInterface;
+	use Kosmosx\Frontend\Services\Abstracts\FrontendProcessor;
+    use Kosmosx\Frontend\Services\Interfaces\FrontendInterface;
 
     /**
 	 * Method to get tag HTML of metatag service
@@ -21,20 +21,15 @@
 	 * Class HtmlTagService
 	 * @package App\Serivces
 	 */
-	class MetatagService extends ServiceProcessor implements FrontManagerInterface
+	class MetatagFrontend extends FrontendProcessor implements FrontendInterface
 	{
 		const PREFIX_OG = 'og:';
 
-		protected $extra;
+		protected $extra = array();
 
-		protected $meta;
+		protected $meta = array();
 
-		protected $og;
-
-		public function __construct()
-		{
-			$this->init();
-		}
+		protected $og = array();
 
 		/**
 		 * Funzione che permette di renderizzare una risorsa specifica, tra:
@@ -123,9 +118,9 @@
 		 * @param null|string $value
 		 *                          value of propriety (ex 'Package for...')
 		 *
-		 * @return \Kosmosx\Frontend\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagFrontend
 		 */
-		public function meta(string $name, ?string $value): MetatagService
+		public function meta(string $name, ?string $value): MetatagFrontend
 		{
 			$value = $this->cleanText($value);
 
@@ -142,9 +137,9 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \Kosmosx\Frontend\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagFrontend
 		 */
-		public function twitter(string $name, ?string $value): MetatagService
+		public function twitter(string $name, ?string $value): MetatagFrontend
 		{
 			$this->og($name, $value, 'twitter');
 			return $this;
@@ -158,9 +153,9 @@
 		 * @param null|string $value
 		 * @param null|string $prefix
 		 *
-		 * @return \Kosmosx\Frontend\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagFrontend
 		 */
-		public function og(string $name, ?string $value, ?string $prefix = null): MetatagService
+		public function og(string $name, ?string $value, ?string $prefix = null): MetatagFrontend
 		{
 			$value = $this->cleanText($value);
 
@@ -179,9 +174,9 @@
 		 * @param string      $name
 		 * @param null|string $value
 		 *
-		 * @return \Kosmosx\Frontend\Services\MetatagService
+		 * @return \Kosmosx\Frontend\Services\MetatagFrontend
 		 */
-		public function extra(string $type, string $name, ?string $value): MetatagService
+		public function extra(string $type, string $name, ?string $value): MetatagFrontend
 		{
 			$value = $this->cleanText($value);
 

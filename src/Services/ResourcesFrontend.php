@@ -2,8 +2,8 @@
 
 	namespace Kosmosx\Frontend\Services;
 
-	use Kosmosx\Frontend\Services\Abstracts\ServiceProcessor;
-    use Kosmosx\Frontend\Services\Interfaces\FrontManagerInterface;
+	use Kosmosx\Frontend\Services\Abstracts\FrontendProcessor;
+    use Kosmosx\Frontend\Services\Interfaces\FrontendInterface;
 
     /**
 	 * Method to get tag HTML of resources service
@@ -24,22 +24,17 @@
 	 * Class ResourceService
 	 * @package App\Services
 	 */
-	class ResourcesService extends ServiceProcessor implements FrontManagerInterface
+	class ResourcesFrontend extends FrontendProcessor implements FrontendInterface
 	{
-		protected $js;
+		protected $js = array();
 
-		protected $variable;
+		protected $variable = array();
 
-		protected $css;
+		protected $css = array();
 
-		protected $scripts;
+		protected $scripts = array();
 
-		protected $style;
-
-		public function __construct()
-		{
-			$this->init();
-		}
+		protected $style = array();
 
 		/**
 		 * Funzione che permette di renderizzare una risorsa specifica, tra:

@@ -21,8 +21,8 @@
 		 */
 		protected function registerAlias()
 		{
-			class_alias(\Kosmosx\Frontend\Services\ResourcesService::class, 'ResourcesService');
-			class_alias(\Kosmosx\Frontend\Services\MetatagService::class, 'MetatagService');
+			class_alias(\Kosmosx\Frontend\Services\ResourcesFrontend::class, 'ResourcesService');
+			class_alias(\Kosmosx\Frontend\Services\MetatagFrontend::class, 'MetatagService');
 		}
 		/**
 		 * Register Services
@@ -32,8 +32,8 @@
 			/**
 			 * Service Response
 			 */
-			$this->app->singleton('service.resources', 'Kosmosx\Frontend\Services\ResourcesService');
-			$this->app->singleton('service.metatag', 'Kosmosx\Frontend\Services\MetatagService');
-			$this->app->singleton('factory.manager', 'Kosmosx\Frontend\Factory\ManagerFactory');
+			$this->app->singleton('service.resources', 'Kosmosx\Frontend\Services\ResourcesFrontend');
+			$this->app->singleton('service.metatag', 'Kosmosx\Frontend\Services\MetatagFrontend');
+			$this->app->singleton('factory.frontend', 'Kosmosx\Frontend\Factory\FrontendFactory');
 		}
 	}
