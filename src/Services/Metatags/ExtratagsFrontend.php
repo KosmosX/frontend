@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Metatags;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class ExtratagsFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class ExtratagsFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		protected $extratags = array();
 
@@ -14,7 +14,7 @@
 			return $this->rendering($this->extratags, $get);
 		}
 
-		public function add(string $type, string $name, ?string $value):FrontendProcessorInterface
+		public function add(string $type, string $name, ?string $value):FrontendServiceInterface
 		{
 			$value = $this->cleanText($value);
 

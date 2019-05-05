@@ -2,9 +2,9 @@
 
 	namespace Kosmosx\Frontend\Services;
 
-	interface FrontendProcessorInterface
+	interface FrontendServiceInterface
 	{
-		//function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface;
+		//function add(string $url, array $property = array(), string $put = 'body'): FrontendServiceInterface;
 
 		//function dump(?string $get = null): ?string;
 

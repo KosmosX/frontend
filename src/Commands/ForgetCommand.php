@@ -2,8 +2,8 @@
 
 	namespace Kosmosx\Frontend\Commands;
 
-	use Kosmosx\Frontend\Commands\Commands;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Commands\Parent\Commands;
+	use Kosmosx\Frontend\Commands\Parent\CommandsInterface;
 
 	class ForgetCommand extends Commands implements CommandsInterface
 	{

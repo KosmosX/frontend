@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class JsVarsFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class JsVarsFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		protected $vars = array();
 
@@ -33,7 +33,7 @@
 			return $output ?: null;
 		}
 
-		public function add($variable, string $name = null):FrontendProcessorInterface
+		public function add($variable, string $name = null):FrontendServiceInterface
 		{
 			if (is_array($variable) && $name == null)
 				$this->variable = array_merge($this->variable, $variable);

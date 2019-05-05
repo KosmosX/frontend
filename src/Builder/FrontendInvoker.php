@@ -1,12 +1,12 @@
 <?php
 
-	namespace Kosmosx\Frontend;
+	namespace Kosmosx\Frontend\Builder;
 
 	use Kosmosx\Frontend\Commands\AddCommand;
 	use Kosmosx\Frontend\Commands\ForgetCommand;
 	use Kosmosx\Frontend\Commands\HasCommand;
 	use Kosmosx\Frontend\Commands\DumpCommand;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
 	class FrontendInvoker implements FrontendInvokerInterface
 	{
@@ -17,7 +17,7 @@
 		private $has;
 		private $forget;
 
-		public function __construct(FrontendProcessorInterface $frontendService)
+		public function __construct(FrontendServiceInterface $frontendService)
 		{
 			$this->service = $frontendService;
 
@@ -52,7 +52,7 @@
 			return $this->has->execute(...$args);
 		}
 
-		public function getIinstance(): FrontendProcessorInterface
+		public function getIinstance(): FrontendServiceInterface
 		{
 			return $this->service;
 		}

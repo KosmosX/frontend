@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Metatags;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class OpenGraphFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class OpenGraphFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		const PREFIX_OG = 'og:';
 
@@ -16,7 +16,7 @@
 			return $this->rendering($this->og, $get);
 		}
 
-		public function add(string $name, ?string $value, ?string $prefix = null):FrontendProcessorInterface
+		public function add(string $name, ?string $value, ?string $prefix = null):FrontendServiceInterface
 		{
 			$value = $this->cleanText($value);
 

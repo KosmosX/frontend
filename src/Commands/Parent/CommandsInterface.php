@@ -1,6 +1,6 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands;
+	namespace Kosmosx\Frontend\Commands\Parent;
 
 	interface CommandsInterface
 	{

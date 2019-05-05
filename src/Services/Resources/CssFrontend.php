@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class CssFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class CssFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		protected $css = array();
 
@@ -14,7 +14,7 @@
 			return $this->rendering($this->css, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendServiceInterface
 		{
 			$property = $this->property($property, true);
 

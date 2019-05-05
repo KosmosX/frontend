@@ -2,9 +2,8 @@
 
 	namespace Kosmosx\Frontend\Commands;
 
-	use Kosmosx\Frontend\Commands\Commands;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Commands\Parent\Commands;
+	use Kosmosx\Frontend\Commands\Parent\CommandsInterface;
 
 	class AddCommand extends Commands implements CommandsInterface
 	{

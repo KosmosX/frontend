@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class StylesheetsFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class StylesheetsFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		protected $stylesheets = array();
 
@@ -14,7 +14,7 @@
 			return $this->rendering($this->stylesheets, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendServiceInterface
 		{
 			$property = array_merge($property, array("rel" => "stylesheet", "href" => $url));
 			$property = $this->property($property);

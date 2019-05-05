@@ -2,7 +2,7 @@
 
 	namespace Kosmosx\Frontend\Services;
 
-	class FrontendProcessor
+	class FrontendService
 	{
 		use Utilities;
 		

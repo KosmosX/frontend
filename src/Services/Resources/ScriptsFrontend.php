@@ -2,10 +2,10 @@
 
 	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Services\FrontendProcessor;
-	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
+	use Kosmosx\Frontend\Services\FrontendService;
+	use Kosmosx\Frontend\Services\FrontendServiceInterface;
 
-	class ScriptsFrontend extends FrontendProcessor implements FrontendProcessorInterface
+	class ScriptsFrontend extends FrontendService implements FrontendServiceInterface
 	{
 		protected $scripts = array();
 
@@ -14,7 +14,7 @@
 			return $this->rendering($this->scripts, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendServiceInterface
 		{
 			$property = array_merge($property, array("src" => $url)); //merge $property with url of script
 			$property = $this->property($property); 				  //create string of property
