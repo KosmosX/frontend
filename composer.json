@@ -1,7 +1,7 @@
 {
     "name": "kosmosx/frontend",
     "description": "Frontend manager for resources and metatag",
-    "keywords": ["laravel", "lumen", "resources", "manager", "opengraph", "metatag"],
+    "keywords": ["php","laravel", "lumen", "resources", "frontend", "opengraph", "metatags"],
     "license": "MIT",
     "type": "package",
     "authors": [
