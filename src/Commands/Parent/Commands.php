@@ -2,7 +2,7 @@
 
 	namespace Kosmosx\Frontend\Commands\Parent;
 
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
 
 	class Commands
 	{

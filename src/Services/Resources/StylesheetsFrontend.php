@@ -3,9 +3,9 @@
 	namespace Kosmosx\Frontend\Services\Resources;
 
 	use Kosmosx\Frontend\Services\FrontendService;
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\ResourcesInterface;
 
-	class StylesheetsFrontend extends FrontendService implements FrontendServiceInterface
+	class StylesheetsFrontend extends FrontendService implements ResourcesInterface
 	{
 		protected $stylesheets = array();
 

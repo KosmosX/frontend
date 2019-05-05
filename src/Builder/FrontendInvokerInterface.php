@@ -2,7 +2,7 @@
 
 	namespace Kosmosx\Frontend\Builder;
 
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
 
 	interface FrontendInvokerInterface
 	{

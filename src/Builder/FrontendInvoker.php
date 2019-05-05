@@ -6,7 +6,8 @@
 	use Kosmosx\Frontend\Commands\ForgetCommand;
 	use Kosmosx\Frontend\Commands\HasCommand;
 	use Kosmosx\Frontend\Commands\DumpCommand;
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
+	use Kosmosx\Frontend\Builder\FrontendInvokerInterface;
 
 	class FrontendInvoker implements FrontendInvokerInterface
 	{

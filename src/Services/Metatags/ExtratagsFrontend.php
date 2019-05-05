@@ -3,9 +3,10 @@
 	namespace Kosmosx\Frontend\Services\Metatags;
 
 	use Kosmosx\Frontend\Services\FrontendService;
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\ExtratagsInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
 
-	class ExtratagsFrontend extends FrontendService implements FrontendServiceInterface
+	class ExtratagsFrontend extends FrontendService implements ExtratagsInterface
 	{
 		protected $extratags = array();
 

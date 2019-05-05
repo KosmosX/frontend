@@ -3,9 +3,10 @@
 	namespace Kosmosx\Frontend\Services\Metatags;
 
 	use Kosmosx\Frontend\Services\FrontendService;
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\OpenGraphInterface;
 
-	class OpenGraphFrontend extends FrontendService implements FrontendServiceInterface
+	class OpenGraphFrontend extends FrontendService implements OpenGraphInterface
 	{
 		const PREFIX_OG = 'og:';
 

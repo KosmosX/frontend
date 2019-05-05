@@ -3,9 +3,10 @@
 	namespace Kosmosx\Frontend\Services\Resources;
 
 	use Kosmosx\Frontend\Services\FrontendService;
-	use Kosmosx\Frontend\Services\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
+	use Kosmosx\Frontend\Services\Interfaces\JsVarsInterface;
 
-	class JsVarsFrontend extends FrontendService implements FrontendServiceInterface
+	class JsVarsFrontend extends FrontendService implements JsVarsInterface
 	{
 		protected $vars = array();
 
