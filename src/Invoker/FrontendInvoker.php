@@ -1,13 +1,13 @@
 <?php
 
-	namespace Kosmosx\Frontend\Builder;
+	namespace Kosmosx\Frontend\Invoker;
 
 	use Kosmosx\Frontend\Commands\AddCommand;
 	use Kosmosx\Frontend\Commands\ForgetCommand;
 	use Kosmosx\Frontend\Commands\HasCommand;
 	use Kosmosx\Frontend\Commands\DumpCommand;
 	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
-	use Kosmosx\Frontend\Builder\FrontendInvokerInterface;
+	use Kosmosx\Frontend\Invoker\FrontendInvokerInterface;
 
 	class FrontendInvoker implements FrontendInvokerInterface
 	{

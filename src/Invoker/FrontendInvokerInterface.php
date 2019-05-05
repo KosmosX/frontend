@@ -1,6 +1,6 @@
 <?php
 
-	namespace Kosmosx\Frontend\Builder;
+	namespace Kosmosx\Frontend\Invoker;
 
 	use Kosmosx\Frontend\Services\Interfaces\FrontendServiceInterface;
 
