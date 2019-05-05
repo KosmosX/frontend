@@ -1,15 +1,15 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands\Resources;
+	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Commands\CommandProcessor;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Services\FrontendProcessor;
+	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
 
-	class JsCommand extends CommandProcessor implements CommandsInterface
+	class JsFrontend extends FrontendProcessor implements FrontendProcessorInterface
 	{
 		protected $js = array();
 
-		public function get(?string $get = null): ?string
+		public function dump(?string $get = null): ?string
 		{
 			return $this->rendering($this->js, $get);
 		}

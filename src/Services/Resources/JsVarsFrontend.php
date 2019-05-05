@@ -1,15 +1,15 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands\Resources;
+	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Commands\CommandProcessor;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Services\FrontendProcessor;
+	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
 
-	class JsVarsCommand extends CommandProcessor implements CommandsInterface
+	class JsVarsFrontend extends FrontendProcessor implements FrontendProcessorInterface
 	{
 		protected $vars = array();
 
-		public function get(?string $get = null): ?string
+		public function dump(?string $name = null): ?string
 		{
 			if (null == $this->variable)
 				return null;
@@ -33,7 +33,7 @@
 			return $output ?: null;
 		}
 
-		public function add($variable, string $name = null)
+		public function add($variable, string $name = null):FrontendProcessorInterface
 		{
 			if (is_array($variable) && $name == null)
 				$this->variable = array_merge($this->variable, $variable);

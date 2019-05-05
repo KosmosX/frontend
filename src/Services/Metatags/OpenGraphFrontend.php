@@ -1,17 +1,17 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands\Metatags;
+	namespace Kosmosx\Frontend\Services\Metatags;
 
-	use Kosmosx\Frontend\Commands\CommandProcessor;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Services\FrontendProcessor;
+	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
 
-	class OpenGraphCommand extends CommandProcessor implements CommandsInterface
+	class OpenGraphFrontend extends FrontendProcessor implements FrontendProcessorInterface
 	{
 		const PREFIX_OG = 'og:';
 
 		protected $og = array();
 
-		public function get(?string $get = null): ?string
+		public function dump(?string $get = null): ?string
 		{
 			return $this->rendering($this->og, $get);
 		}

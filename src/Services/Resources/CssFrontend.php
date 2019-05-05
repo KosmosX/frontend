@@ -1,15 +1,15 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands\Resources;
+	namespace Kosmosx\Frontend\Services\Resources;
 
-	use Kosmosx\Frontend\Commands\CommandProcessor;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Services\FrontendProcessor;
+	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
 
-	class CssCommand extends CommandProcessor implements CommandsInterface
+	class CssFrontend extends FrontendProcessor implements FrontendProcessorInterface
 	{
 		protected $css = array();
 
-		public function get(?string $get = null): ?string
+		public function dump(?string $get = null): ?string
 		{
 			return $this->rendering($this->css, $get);
 		}

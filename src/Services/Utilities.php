@@ -1,6 +1,6 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands;
+	namespace Kosmosx\Frontend\Services;
 
 	trait Utilities
 	{
@@ -94,7 +94,7 @@
 		 *
 		 * @return string
 		 */
-		protected function checkContext(?string $context, string $default = ''): string
+		protected function checkContext(?string $context): ?string
 		{
 			$position = strpos($context, '.');
 			if(false !== $position)
@@ -103,7 +103,7 @@
 			$rules = array_merge(self::CONTEXT, $this->context);
 
 			if (null == $context || false === in_array($context, $rules))
-				return in_array($default, $rules) ? $default : 'body';
+				return null;
 
 			return $context;
 		}

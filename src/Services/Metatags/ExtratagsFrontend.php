@@ -1,15 +1,15 @@
 <?php
 
-	namespace Kosmosx\Frontend\Commands\Metatags;
+	namespace Kosmosx\Frontend\Services\Metatags;
 
-	use Kosmosx\Frontend\Commands\CommandProcessor;
-	use Kosmosx\Frontend\Commands\CommandsInterface;
+	use Kosmosx\Frontend\Services\FrontendProcessor;
+	use Kosmosx\Frontend\Services\FrontendProcessorInterface;
 
-	class ExtratagsCommand extends CommandProcessor implements CommandsInterface
+	class ExtratagsFrontend extends FrontendProcessor implements FrontendProcessorInterface
 	{
 		protected $extratags = array();
 
-		public function get(?string $get = null): ?string
+		public function dump(?string $get = null): ?string
 		{
 			return $this->rendering($this->extratags, $get);
 		}
