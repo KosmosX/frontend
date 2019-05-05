@@ -8,7 +8,7 @@
 	{
 		protected $processor;
 
-		public function __construct(FrontendProcessorInterface $processor) {
+		public function __construct(FrontendProcessorInterface &$processor) {
 			$this->processor = $processor;
 		}
 	}

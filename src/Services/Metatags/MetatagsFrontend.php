@@ -14,7 +14,7 @@
 			return $this->rendering($this->metatags, $get);
 		}
 
-		public function add(string $name, ?string $value): object
+		public function add(string $name, ?string $value): FrontendProcessorInterface
 		{
 			$value = $this->cleanText($value);
 

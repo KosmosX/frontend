@@ -14,7 +14,7 @@
 			return $this->rendering($this->scripts, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): object
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
 		{
 			$property = array_merge($property, array("src" => $url)); //merge $property with url of script
 			$property = $this->property($property); 				  //create string of property

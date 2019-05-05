@@ -8,10 +8,6 @@
 
 	class AddCommand extends Commands implements CommandsInterface
 	{
-		public function __construct(FrontendProcessorInterface &$processor) {
-			$this->processor = $processor;
-		}
-		
 		public function execute(): ?string
 		{
 			$args = func_get_args();

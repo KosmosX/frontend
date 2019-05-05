@@ -14,7 +14,7 @@
 			return $this->rendering($this->extratags, $get);
 		}
 
-		public function add(string $type, string $name, ?string $value)
+		public function add(string $type, string $name, ?string $value):FrontendProcessorInterface
 		{
 			$value = $this->cleanText($value);
 

@@ -16,7 +16,7 @@
 			return $this->rendering($this->og, $get);
 		}
 
-		public function add(string $name, ?string $value, ?string $prefix = null)
+		public function add(string $name, ?string $value, ?string $prefix = null):FrontendProcessorInterface
 		{
 			$value = $this->cleanText($value);
 

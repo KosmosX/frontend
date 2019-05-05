@@ -14,7 +14,7 @@
 			return $this->rendering($this->js, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): object
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
 		{
 			$property = $this->property($property, true);
 

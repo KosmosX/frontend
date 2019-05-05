@@ -11,5 +11,4 @@
 		function forget(): bool;
 		function has(): bool;
 		function getIinstance(): FrontendProcessorInterface;
-		function setInstance(FrontendProcessorInterface $processor): FrontendInvokerInterface;
 	}

@@ -14,7 +14,7 @@
 			return $this->rendering($this->stylesheets, $get);
 		}
 
-		public function add(string $url, array $property = array(), string $put = 'body'): object
+		public function add(string $url, array $property = array(), string $put = 'body'): FrontendProcessorInterface
 		{
 			$property = array_merge($property, array("rel" => "stylesheet", "href" => $url));
 			$property = $this->property($property);
