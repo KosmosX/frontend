@@ -18,7 +18,8 @@
     },
 
     "require": {
-        "php": ">=7.1.3"
+        "php": ">=7.1.3",
+        "kosmosx/helpers": "~1.0"
     },
 
     "autoload": {

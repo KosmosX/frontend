@@ -14,7 +14,7 @@
 		 */
 		public function register()
 		{
-			class_alias(FrontendFactory::class, 'FrontendFactory');
+			register_alias(FrontendFactory::class, 'FrontendFactory');
 
 			$this->app->bind('factory.frontend', function ($app) {
 				return new FrontendFactory();
